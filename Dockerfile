@@ -18,8 +18,8 @@ RUN apk update && \
             flex \
             boost-dev \
             texinfo \
-            zlib-dev
-
+            zlib-dev \
+            libpng-dev
 
 # Raspberry Pi Pico SDK
 ARG SDK_PATH=/usr/share/pico_sdk
@@ -80,3 +80,12 @@ RUN cd /home/sdcc-r13350/sdcc && \
     rm -rf /home/sdcc-r13350
 
 ENV GBDK_PATH=$GBDK_PATH
+
+# RGBDS installation
+RUN git clone --branch v0.7.0 https://github.com/gbdev/rgbds.git /home/rgbds && \
+    cd /home/rgbds && \
+    mkdir build && \
+    cd build && \
+    cmake .. -DCMAKE_BUILD_TYPE=Release && \
+    cmake --build . && \
+    cmake --install .
