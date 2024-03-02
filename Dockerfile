@@ -48,7 +48,7 @@ RUN svn checkout -q -r r14228 svn://svn.code.sf.net/p/sdcc/code/trunk /home/sdcc
     patch -p0 -f < gbdk-sdcc-patch-file && \
     ./configure \
         --disable-shared --enable-gbz80-port  --enable-z80-port  --enable-mos6502-port  --enable-mos65c02-port  --disable-mcs51-port  --disable-z180-port  --disable-r2k-port  --disable-r2ka-port  --disable-r3ka-port  --disable-tlcs90-port  --disable-ez80_z80-port  --disable-z80n-port  --disable-ds390-port  --disable-ds400-port  --disable-pic14-port  --disable-pic16-port  --disable-hc08-port  --disable-s08-port  --disable-stm8-port  --disable-pdk13-port  --disable-pdk14-port  --disable-pdk15-port  --disable-ucsim  --disable-doc  --disable-device-lib && \
-    make -j$(nproc) && \
+    make && \
     # New sdcc build no longer copies some binaries to bin
     cp -f src/sdcc bin && \
     cp -f support/sdbinutils/binutils/sdar bin && \
@@ -86,4 +86,6 @@ RUN git clone --branch v0.7.0 https://github.com/gbdev/rgbds.git /home/rgbds && 
     cd build && \
     cmake .. -DCMAKE_BUILD_TYPE=Release && \
     cmake --build . && \
-    cmake --install .
+    cmake --install . && \
+	cd /home && \
+	rm -rf /home/rgbds
