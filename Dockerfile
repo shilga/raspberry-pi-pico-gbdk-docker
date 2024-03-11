@@ -44,7 +44,7 @@ RUN git clone --depth 1 --branch 1.1.2 https://github.com/raspberrypi/picotool.g
 ARG GBDK_PATH=/usr/share/gbdk
 RUN svn checkout -q -r r14228 svn://svn.code.sf.net/p/sdcc/code/trunk /home/sdcc-r14228 && \
     cd /home/sdcc-r14228/sdcc && \
-    curl -Lo gbdk-sdcc-patch-file https://github.com/gbdk-2020/gbdk-2020-sdcc/releases/download/patches/gbdk-4.2-nes_banked_nonbanked_v3_combined-patches && \
+    curl -Lo gbdk-sdcc-patch-file https://github.com/gbdk-2020/gbdk-2020-sdcc/releases/download/patches/gbdk-4.2-nes_banked_nonbanked_v4_combined.diff.patch && \
     patch -p0 -f < gbdk-sdcc-patch-file && \
     ./configure \
         --disable-shared --enable-gbz80-port  --enable-z80-port  --enable-mos6502-port  --enable-mos65c02-port  --disable-mcs51-port  --disable-z180-port  --disable-r2k-port  --disable-r2ka-port  --disable-r3ka-port  --disable-tlcs90-port  --disable-ez80_z80-port  --disable-z80n-port  --disable-ds390-port  --disable-ds400-port  --disable-pic14-port  --disable-pic16-port  --disable-hc08-port  --disable-s08-port  --disable-stm8-port  --disable-pdk13-port  --disable-pdk14-port  --disable-pdk15-port  --disable-ucsim  --disable-doc  --disable-device-lib && \
@@ -67,7 +67,7 @@ RUN svn checkout -q -r r14228 svn://svn.code.sf.net/p/sdcc/code/trunk /home/sdcc
     mkdir libexec/sdcc && \
     mv bin/cc1 libexec/sdcc && \
     # Build GBDK
-    git clone -b 4.2.0 https://github.com/gbdk-2020/gbdk-2020.git /home/gbdk-2020 && \
+    git clone -b 4.2.0-croco https://github.com/shilga/gbdk-2020.git /home/gbdk-2020 && \
     export SDCCDIR=/home/sdcc-r14228/sdcc && \
     cd /home/gbdk-2020 && \
     make && \
